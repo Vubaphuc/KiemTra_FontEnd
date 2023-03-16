@@ -19,13 +19,18 @@ function App() {
   };
 
   const handleDeleteProduct = async (productId) => {
-    try {
-      await axios.delete(`http://localhost:8080/api/v1/cartItems/${productId}`);
-      setProducts((prevProducts) =>
-        prevProducts.filter((product) => product.id !== productId)
-      );
-    } catch (error) {
-      console.log(error);
+    const shouldDelete = window.confirm("Bạn có muốn xóa sản phẩm này không?");
+    if (shouldDelete) {
+      try {
+        await axios.delete(
+          `http://localhost:8080/api/v1/cartItems/${productId}`
+        );
+        setProducts((prevProducts) =>
+          prevProducts.filter((product) => product.id !== productId)
+        );
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
